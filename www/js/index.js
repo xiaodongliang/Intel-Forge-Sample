@@ -29,6 +29,9 @@ const baseurl = 'http://localhost:3456';
 //replace with your suitable topic names 
 const SOCKET_TOPIC_IN = 'Intel-Forge-Temperature'; 
 
+ //replace with your test id
+ var testdbid = 2912;
+
 var accesstoken = "";
  
 $(document).ready( function(){  
@@ -113,22 +116,19 @@ $(document).ready( function(){
     //subscribe the socket data 
     $("#startwebsocket").click(function(res){
         socketio.on('Intel-Forge-Temperature', function (msg) {
-            console.log("Data from Intel: " + msg);
-
-            //
-            var dbid = 2912;
+            console.log("Data from Intel: " + msg); 
 
             var msgJson = JSON.parse(msg);
             if(msgJson.sensor_id == 'temperature'){
                 if(msgJson.value < 20){
                     viewer.setThemingColor(
-                        dbid, 
+                        testdbid, 
                         new THREE.Vector4(0, 1, 1,1)
                     );
                }
                else if(msgJson.value > 20 && msgJson.value<30){
                 viewer.setThemingColor(
-                    dbid, 
+                    testdbid, 
                     new THREE.Vector4(0, 0.5, 1,1)
                 );
                } 
